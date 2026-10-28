@@ -1,4 +1,4 @@
 /__pycache__
 *.mp4
 *.weights
-/uploaded_images
+/uploaded_images/processed_image.jpg
