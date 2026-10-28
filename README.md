@@ -24,7 +24,7 @@ Built at **ConUHacks VIII** (Concordia, January 2024) in about 24 hours, by a te
 
 Requirements: Node.js 18+, Python 3.10+, and the YOLOv3 weights file (see [`model/README.md`](model/README.md)).
 
-**Detection backend** (port 5000):
+**Detection backend** (port 5001):
 
 ```bash
 cd model

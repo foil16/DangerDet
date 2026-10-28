@@ -29,7 +29,7 @@ const WebcamStream = () => {
         const formData = new FormData();
         formData.append("frame", blob, "frame.jpg");
 
-        fetch("http://localhost:5000/process_image", {
+        fetch("http://localhost:5001/process_image", {
           method: "POST",
           body: formData,
           mode: "cors",
