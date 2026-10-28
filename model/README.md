@@ -1,44 +1,32 @@
-# Fire and Gun Detection
+# Detection backend
 
-![result](https://raw.githubusercontent.com/atulyakumar97/fire-and-gun-detection/master/screenshots/0.jpg "Model Output")
+A Flask API that runs a YOLOv3 model over webcam frames and reports whether it sees a gun, a rifle or fire.
 
-### How to use yolo.py:
-```
-usage: yolo.py [-h] [--webcam WEBCAM] [--play_video PLAY_VIDEO]
-               [--image IMAGE] [--video_path VIDEO_PATH]
-               [--image_path IMAGE_PATH] [--verbose VERBOSE]
+## Credit
 
-optional arguments:
-  -h, --help            show this help message and exit
-  --webcam WEBCAM       True/False
-  --play_video PLAY_VIDEO
-                        Tue/False
-  --image IMAGE         Tue/False
-  --video_path VIDEO_PATH
-                        Path of video file
-  --image_path IMAGE_PATH
-                        Path of image to detect objects
-  --verbose VERBOSE     To print statements
-```
+The model and `yolo.py` come from [atulyakumar97/fire-and-gun-detection](https://github.com/atulyakumar97/fire-and-gun-detection) (MIT license, see `LICENSE`):
+- **Trained on:** the [fire and gun dataset](https://www.kaggle.com/atulyakumar98/fire-and-gun-dataset).
+- **Paper:** [Fire and Gun Violence based Anomaly Detection System Using Deep Neural Networks](https://ieeexplore.ieee.org/document/9155625), ICESCS 2020.
 
-### Weights File Backup
+During the hackathon we added `app.py`, which serves the model over HTTP for the React frontend.
 
-If the GitLFS file is not accessible - Download [Weights](https://1drv.ms/u/s!Aj0l1DM1G5wOm0Vg2n7RI5Q4_ZOq?e=gGvvMy) and keep inside the project folder.
+## API
 
+`POST /process_image`
+- **Request:** multipart form with a `frame` image field.
+- **Response:** the annotated JPEG, plus a `type` header holding the first detected label (`Gun`, `Rifle`, `Fire`) or `Nothing`.
 
-### Move inside the project folder and use the following command:
-```
-python yolo.py --play_video True --video_path videos/fire1.mp4
+## Setup
+
+1. Download the pre-trained `yolov3.weights` from the [upstream project's link](https://1drv.ms/u/s!Aj0l1DM1G5wOm0Vg2n7RI5Q4_ZOq?e=gGvvMy).
+2. Put it in this folder. It's gitignored.
+3. Then:
+
+```bash
+python3 -m venv .venv
+source .venv/bin/activate
+pip install -r requirements.txt
+python app.py        # serves on http://127.0.0.1:5000
 ```
 
-[Dataset](https://www.kaggle.com/atulyakumar98/fire-and-gun-dataset)
-
-Training done on google collab - [Jupyter notebook](https://colab.research.google.com/drive/1rtBmGPgYQGwpAPkcqqgb_RE6fZj89ceb?usp=sharing)
-
-Demo: [Youtube](https://www.youtube.com/watch?v=KUrOOUEtYzo)
-
-### Paper
-[Fire and Gun Violence based Anomaly Detection System Using Deep Neural Networks](https://ieeexplore.ieee.org/document/9155625) <br>
-Proceedings of the [International conference on Electronics and Sustainable Communication Systems - ICESCS 2020](https://ieeexplore.ieee.org/servlet/opac?punumber=9145513) <br>
-ISBN: 978-1-7281-4107-7 <br>
-978-1-7281-4108-4/20/©2020 IEEE <br>
+On macOS, port 5000 may be taken by AirPlay Receiver. Turn it off under System Settings → General → AirDrop & Handoff.

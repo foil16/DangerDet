@@ -1,1 +1,21 @@
-/server/node_modules
+# Node
+node_modules/
+build/
+npm-debug.log*
+
+# Python
+__pycache__/
+*.py[cod]
+.venv/
+venv/
+
+# Model weights (download separately, see model/README.md)
+*.weights
+
+# Environment / OS / editors
+.env
+.env.*
+!.env.example
+.DS_Store
+.idea/
+.vscode/
